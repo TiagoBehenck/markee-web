@@ -25,6 +25,25 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     font-family: 'DM Sans', sans-serif;
+    text-rendering: optimizeLegibility !important;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  button {
+    border-style: none;
+    cursor: pointer;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
   }
 `
 

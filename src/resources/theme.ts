@@ -8,5 +8,8 @@ export const theme: DefaultTheme = {
     primary: '#1FC8E1',
     white: '#FAFAFA',
     secondary: '#2DD4BF',
+    primaryDark: '#18A1B5',
+    whiteWithOpacity: 'rgba(255, 255, 255, 0.65)',
+    linkItemHover: 'rgba(255, 255, 255, 0.05)',
   },
 }

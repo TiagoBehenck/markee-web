@@ -1,16 +1,9 @@
-import styled, { css } from 'styled-components'
+import { Home } from 'ui/screens/home'
 
 function App() {
   return (
-    <Title>App</Title>
+    <Home />
   )
 }
-
-const Title = styled.h1`
-  ${({ theme }) => css`
-    background: ${theme.colors.primary};
-    color: ${theme.colors.black}
-  `}
-`
 
 export { App }
