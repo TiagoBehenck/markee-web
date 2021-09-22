@@ -7,6 +7,9 @@ declare module 'styled-components' {
       primary: string,
       white: string,
       secondary: string,
+      primaryDark: string,
+      whiteWithOpacity: string,
+      linkItemHover: string,
     };
   }
 }
