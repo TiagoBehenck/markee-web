@@ -45,6 +45,7 @@ export const Textarea = styled.textarea`
   height: 100%;
   padding: 20px;
   resize: none;
+  width: 48%;
 
   &:focus {
     outline: none;
