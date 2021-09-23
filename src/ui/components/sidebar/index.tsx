@@ -1,27 +1,29 @@
+import { useState } from 'react'
+import { v4 as uuidV4 } from 'uuid'
 import { File } from 'resources/files/types'
 
 import logo from 'ui/assets/fullLogo.svg'
 import * as icon from 'ui/assets/icons'
 import * as S from './style'
 
-const files: File[] = [
-  {
-    id: '0',
-    name: 'README.md',
-    content: 'Conteúdo do README',
-    active: false,
-    status: 'saved',
-  },
-  {
-    id: '1',
-    name: 'CONTRIBUTING.md',
-    content: 'Conteúdo do Contributing',
-    active: true,
-    status: 'editing',
-  },
-]
-
 function Sidebar() {
+  const [files, setFiles] = useState<File[]>([])
+
+  const handleAddFile = () => {
+    const filesNotActive = files.map(file => ({
+      ...file,
+      active: false,
+    }))
+
+    setFiles([...filesNotActive, {
+      id: uuidV4(),
+      name: 'Sem título',
+      content: '',
+      active: true,
+      status: 'saved',
+    }])
+  }
+
   return (
     <S.Wrapper>
       <S.Header>
@@ -30,7 +32,7 @@ function Sidebar() {
       <S.H1>
         <span> Arquivos </span>
       </S.H1>
-      <S.Button>
+      <S.Button onClick={handleAddFile}>
         <icon.PlusDark />
         Adicionar arquivo
       </S.Button>
