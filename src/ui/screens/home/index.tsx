@@ -1,13 +1,16 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { v4 as uuidV4 } from 'uuid'
 import { File } from 'resources/files/types'
 import { Content } from 'ui/components/content'
 import * as S from './style'
 
 function Home() {
+  const inputRef = useRef<HTMLInputElement>(null)
   const [files, setFiles] = useState<File[]>([])
 
   const handleAddFile = () => {
+    inputRef.current?.focus()
+
     const filesNotActive = files.map(file => ({
       ...file,
       active: false,
@@ -33,7 +36,9 @@ function Home() {
         handleAddFile={handleAddFile}
         handleRemoveFile={handleDeleteFile}
       />
-      <Content />
+      <Content
+        inputRef={inputRef}
+      />
     </S.Wrapper>
   )
 }

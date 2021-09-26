@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { RefObject, ChangeEvent, useState } from 'react'
 import marked from 'marked'
 
 import 'highlight.js/styles/base16/darcula.css'
@@ -19,7 +19,11 @@ import('highlight.js').then(hljs => {
   })
 })
 
-function Content() {
+type ContentProps = {
+  inputRef: RefObject<HTMLInputElement>
+}
+
+function Content({ inputRef }: ContentProps) {
   const [content, setContent] = useState('')
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -29,7 +33,12 @@ function Content() {
   return (
     <S.Wrapper>
       <S.Header>
-        <S.Input type='text' />
+        <S.Input
+          type='text'
+          placeholder='Título'
+          ref={inputRef}
+          autoFocus
+        />
       </S.Header>
 
       <S.Main>
