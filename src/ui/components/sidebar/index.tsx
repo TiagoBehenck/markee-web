@@ -1,29 +1,20 @@
-import { useState } from 'react'
-import { v4 as uuidV4 } from 'uuid'
 import { File } from 'resources/files/types'
 
 import logo from 'ui/assets/fullLogo.svg'
 import * as icon from 'ui/assets/icons'
 import * as S from './style'
 
-function Sidebar() {
-  const [files, setFiles] = useState<File[]>([])
+type SidebarProps = {
+  files: File[]
+  handleAddFile: () => void
+  handleRemoveFile(id: string): void;
+}
 
-  const handleAddFile = () => {
-    const filesNotActive = files.map(file => ({
-      ...file,
-      active: false,
-    }))
-
-    setFiles([...filesNotActive, {
-      id: uuidV4(),
-      name: 'Sem título',
-      content: '',
-      active: true,
-      status: 'saved',
-    }])
-  }
-
+function Sidebar({
+  files,
+  handleAddFile,
+  handleRemoveFile,
+}: SidebarProps) {
   return (
     <S.Wrapper>
       <S.Header>
@@ -49,7 +40,7 @@ function Sidebar() {
             {file.active && <S.StatusIconStyled status={file.status} />}
 
             {!file.active && (
-              <S.DeleteButton>
+              <S.DeleteButton onClick={() => handleRemoveFile(file.id)}>
                 <S.DeleteIcon />
               </S.DeleteButton>
             )}
