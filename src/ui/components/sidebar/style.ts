@@ -108,6 +108,7 @@ export const LinkItemContent = styled.a<LinkItemContentProps>`${({ theme, active
   padding: 8px 32px;
   padding-left: 50px;
   text-decoration: none;
+  height: 34px;
   ${active && css`
     background-color: ${theme.colors.lightBlack};
   `}

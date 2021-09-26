@@ -1,9 +1,10 @@
-import { ChangeEvent, useState } from 'react'
+import { RefObject, ChangeEvent } from 'react'
 import marked from 'marked'
 
 import 'highlight.js/styles/base16/darcula.css'
 
 import * as S from './styles'
+import { File } from 'resources/files/types'
 
 import('highlight.js').then(hljs => {
   const h = hljs.default
@@ -19,27 +20,45 @@ import('highlight.js').then(hljs => {
   })
 })
 
-function Content() {
-  const [content, setContent] = useState('')
+type ContentProps = {
+  file?: File
+  inputRef: RefObject<HTMLInputElement>
+  handleUpdateTitle: (id: string) => (e: ChangeEvent<HTMLInputElement>) => void
+  handleUpdateFile: (id: string) => (e: ChangeEvent<HTMLTextAreaElement>) => void
+}
 
-  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value)
+function Content({
+  file,
+  inputRef,
+
+  handleUpdateTitle,
+  handleUpdateFile,
+}: ContentProps) {
+  if (!file) {
+    return null
   }
 
   return (
     <S.Wrapper>
       <S.Header>
-        <S.Input type='text' />
+        <S.Input
+          type='text'
+          placeholder='Título'
+          ref={inputRef}
+          value={file.name}
+          onChange={handleUpdateTitle(file.id)}
+          autoFocus
+        />
       </S.Header>
 
       <S.Main>
         <S.Textarea
           placeholder='Digite aqui seu markdown'
-          value={content}
-          onChange={handleChange}
+          value={file.content}
+          onChange={handleUpdateFile(file.id)}
         />
 
-        <S.Preview dangerouslySetInnerHTML={{ __html: marked(content) }} />
+        <S.Preview dangerouslySetInnerHTML={{ __html: marked(file.content) }} />
       </S.Main>
     </S.Wrapper>
   )
