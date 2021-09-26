@@ -25,6 +25,19 @@ function Home() {
     }])
   }
 
+  const handleUpdateFile = (id: string) => (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setFiles(files => files.map(file => {
+      if (file.id === id) {
+        return {
+          ...file,
+          content: e.target.value,
+          status: 'editing',
+        }
+      }
+
+      return file
+    }))
+  }
   const handleUpdateTitle = (id: string) => (e: ChangeEvent<HTMLInputElement>) => {
     setFiles(files => files.map(file => {
       if (file.id === id) {
@@ -54,6 +67,7 @@ function Home() {
         file={files.find(file => file.active)}
         inputRef={inputRef}
         handleUpdateTitle={handleUpdateTitle}
+        handleUpdateFile={handleUpdateFile}
       />
     </S.Wrapper>
   )

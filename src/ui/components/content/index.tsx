@@ -1,4 +1,4 @@
-import { RefObject, ChangeEvent, useState } from 'react'
+import { RefObject, ChangeEvent } from 'react'
 import marked from 'marked'
 
 import 'highlight.js/styles/base16/darcula.css'
@@ -24,19 +24,16 @@ type ContentProps = {
   file?: File
   inputRef: RefObject<HTMLInputElement>
   handleUpdateTitle: (id: string) => (e: ChangeEvent<HTMLInputElement>) => void
+  handleUpdateFile: (id: string) => (e: ChangeEvent<HTMLTextAreaElement>) => void
 }
 
 function Content({
   file,
   inputRef,
+
   handleUpdateTitle,
+  handleUpdateFile,
 }: ContentProps) {
-  const [content, setContent] = useState('')
-
-  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value)
-  }
-
   if (!file) {
     return null
   }
@@ -57,11 +54,11 @@ function Content({
       <S.Main>
         <S.Textarea
           placeholder='Digite aqui seu markdown'
-          value={content}
-          onChange={handleChange}
+          value={file.content}
+          onChange={handleUpdateFile(file.id)}
         />
 
-        <S.Preview dangerouslySetInnerHTML={{ __html: marked(content) }} />
+        <S.Preview dangerouslySetInnerHTML={{ __html: marked(file.content) }} />
       </S.Main>
     </S.Wrapper>
   )
