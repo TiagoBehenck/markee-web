@@ -4,12 +4,6 @@
   <img src="./src/ui/assets/fullLogo.svg" width="200" alt="Logo do Markee"/>
 </div>
 
-<h3 align="center">
-  Edit your markdown simply
-  <a href="https://markee-tbs.netlify.app">Check now</a>
-</h3>
-
-
 <p align="center">
   <a href="#pencil-about-the-project">About the project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#wrench-installation">Installation</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
