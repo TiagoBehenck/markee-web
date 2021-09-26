@@ -64,9 +64,19 @@ export function useFiles() {
     updateFileDebounce()
   }, [updateFile])
 
+  const replaceURL = useCallback(() => {
+    const selectedFile = files.find(file => file.active)
+
+    if (selectedFile) {
+      window.history.replaceState(null, '', `/file/${selectedFile.id}`)
+    }
+  }, [files])
+
   useEffect(() => {
     localforage.setItem(KEY_LOCALFORAGE, files)
-  }, [files])
+
+    replaceURL()
+  }, [files, replaceURL])
 
   useEffect(() => {
     const getItensFromStorage = async () => {
