@@ -4,6 +4,7 @@ import marked from 'marked'
 import 'highlight.js/styles/base16/darcula.css'
 
 import * as S from './styles'
+import { File } from 'resources/files/types'
 
 import('highlight.js').then(hljs => {
   const h = hljs.default
@@ -20,14 +21,24 @@ import('highlight.js').then(hljs => {
 })
 
 type ContentProps = {
+  file?: File
   inputRef: RefObject<HTMLInputElement>
+  handleUpdateTitle: (id: string) => (e: ChangeEvent<HTMLInputElement>) => void
 }
 
-function Content({ inputRef }: ContentProps) {
+function Content({
+  file,
+  inputRef,
+  handleUpdateTitle,
+}: ContentProps) {
   const [content, setContent] = useState('')
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setContent(e.target.value)
+  }
+
+  if (!file) {
+    return null
   }
 
   return (
@@ -37,6 +48,8 @@ function Content({ inputRef }: ContentProps) {
           type='text'
           placeholder='Título'
           ref={inputRef}
+          value={file.name}
+          onChange={handleUpdateTitle(file.id)}
           autoFocus
         />
       </S.Header>

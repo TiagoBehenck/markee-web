@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { ChangeEvent, useRef, useState } from 'react'
 import { v4 as uuidV4 } from 'uuid'
 import { File } from 'resources/files/types'
 import { Content } from 'ui/components/content'
@@ -25,6 +25,20 @@ function Home() {
     }])
   }
 
+  const handleUpdateTitle = (id: string) => (e: ChangeEvent<HTMLInputElement>) => {
+    setFiles(files => files.map(file => {
+      if (file.id === id) {
+        return {
+          ...file,
+          name: e.target.value,
+          status: 'editing',
+        }
+      }
+
+      return file
+    }))
+  }
+
   const handleDeleteFile = (id: string) => {
     setFiles(files => files.filter(files => files.id !== id))
   }
@@ -37,7 +51,9 @@ function Home() {
         handleRemoveFile={handleDeleteFile}
       />
       <Content
+        file={files.find(file => file.active)}
         inputRef={inputRef}
+        handleUpdateTitle={handleUpdateTitle}
       />
     </S.Wrapper>
   )
