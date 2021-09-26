@@ -7,6 +7,8 @@ import {
   useCallback,
 } from 'react'
 import { v4 as uuidV4 } from 'uuid'
+import localforage from 'localforage'
+
 import { File } from 'resources/files/types'
 
 const debounce = (fn: Function, ms = 300) => {
@@ -16,6 +18,8 @@ const debounce = (fn: Function, ms = 300) => {
     timeoutId = setTimeout(() => fn.apply(this, args), ms)
   }
 }
+
+const KEY_LOCALFORAGE = '@markee-app'
 
 export function useFiles() {
   const inputRef = useRef<HTMLInputElement>(null)
@@ -59,6 +63,26 @@ export function useFiles() {
 
     updateFileDebounce()
   }, [updateFile])
+
+  useEffect(() => {
+    localforage.setItem(KEY_LOCALFORAGE, files)
+  }, [files])
+
+  useEffect(() => {
+    const getItensFromStorage = async () => {
+      const files = await localforage.getItem<File[]>(KEY_LOCALFORAGE)
+
+      if (files) {
+        setFiles(files)
+        return
+      }
+
+      handleAddFile()
+    }
+
+    getItensFromStorage()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const handleAddFile = () => {
     inputRef.current?.focus()
