@@ -1,3 +1,4 @@
+import { MouseEvent } from 'react'
 import { File } from 'resources/files/types'
 
 import logo from 'ui/assets/fullLogo.svg'
@@ -8,12 +9,14 @@ type SidebarProps = {
   files: File[]
   handleAddFile: () => void
   handleRemoveFile(id: string): void;
+  onSelectFile: (id: string) => (e: MouseEvent<HTMLAnchorElement>) => void
 }
 
 function Sidebar({
   files,
   handleAddFile,
   handleRemoveFile,
+  onSelectFile,
 }: SidebarProps) {
   return (
     <S.Wrapper>
@@ -32,8 +35,13 @@ function Sidebar({
         {files.map(file => (
           <S.LinkItem
             key={file.id}
+
           >
-            <S.LinkItemContent href={`/file/${file.id}`} active={file.active}>
+            <S.LinkItemContent
+              href={`/file/${file.id}`}
+              active={file.active}
+              onClick={onSelectFile(file.id)}
+            >
               {file.name}
             </S.LinkItemContent>
 
