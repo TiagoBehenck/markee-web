@@ -30,7 +30,6 @@ type ContentProps = {
 function Content({
   file,
   inputRef,
-
   handleUpdateTitle,
   handleUpdateFile,
 }: ContentProps) {
