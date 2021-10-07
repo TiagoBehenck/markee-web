@@ -47,4 +47,4 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-export { Root }
+export { Root, GlobalStyle }
