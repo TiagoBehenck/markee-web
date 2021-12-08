@@ -26,7 +26,7 @@ function Sidebar({
       <S.H1>
         <span> Arquivos </span>
       </S.H1>
-      <S.Button onClick={handleAddFile}>
+      <S.Button onClick={handleAddFile} data-test-id='add-button'>
         <icon.PlusDark />
         Adicionar arquivo
       </S.Button>

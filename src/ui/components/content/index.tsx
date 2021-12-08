@@ -47,6 +47,7 @@ function Content({
           ref={inputRef}
           value={file.name}
           onChange={handleUpdateTitle(file.id)}
+          data-test-id='header-title'
           autoFocus
         />
       </S.Header>
